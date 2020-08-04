@@ -1,0 +1,105 @@
+usingnamespace @import("latte.zen");
+
+
+
+export fn _start() void {
+    var cX:i8 = 16;
+    var cY:i8 = 12;
+
+    var d1:i32 = 90;
+    var d2:i32 = 210;
+    var d3:i32 = 330;
+    var r:i32 = 8;
+    var d:i32 = 0;
+    var s:i32 = 1;
+
+    while(true){
+        latte.screen_clear();
+        line(
+            @intCast(i8, (r*latte.sin8(d+d1+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d1))>>8) + cY,
+            @intCast(i8, (r*latte.sin8(d+d2+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d2))>>8) + cY
+        );
+        line(
+            @intCast(i8, (r*latte.sin8(d+d2+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d2))>>8) + cY,
+            @intCast(i8, (r*latte.sin8(d+d3+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d3))>>8) + cY
+        );
+        line(
+            @intCast(i8, (r*latte.sin8(d+d3+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d3))>>8) + cY,
+            @intCast(i8, (r*latte.sin8(d+d1+90))>>8) + cX,
+            @intCast(i8, (r*latte.sin8(d+d1))>>8) + cY
+        );
+
+        latte.sleep(3, 0);
+
+        var k:u8 = latte.keyboard_deqKeyBuf();
+        if(k == 32){
+            break;
+        }else
+        if(k == 30){
+            s += 1;
+        }else
+        if(k == 31){
+            s -= 1;
+        }else
+        {}
+
+        d += s;
+    }
+}
+
+
+
+fn _abs(x:i32) u32{
+    return @intCast(u8, (if(0<x) x else -x));
+}
+
+fn _div(n:i32, d:i32) i32{
+    return if(d != 0) latte.div(n, d) else n;
+}
+
+fn _dot(x:i32, y:i32) void{
+    if( (0<=x and x<32) and (0<=y and y<24) ){
+        latte.screen_buf(@intCast(u8,x), @intCast(u8,y)).* = '*';
+    }
+}
+
+fn line(x1:i8, y1:i8, x2:i8, y2:i8) void{
+    var dx:i32 = (x2 - x1);
+    var dy:i32 = (y2 - y1);
+    if(_abs(dx) < _abs(dy)){
+        if(y1 < y2){
+            var i:i32 = 0;
+            while(y1+i <= y2){
+                _dot(x1+_div(dx*i,dy), y1+i);
+                i += 1;
+            }
+        }else{
+            var i:i32 = 0;
+            while(y2+i <= y1){
+                _dot(x2+_div(dx*i,dy), y2+i);
+                i += 1;
+            }
+        }
+    }else{
+        if(x1 < x2){
+            var i:i32 = 0;
+            while(x1+i <= x2){
+                _dot(x1+i, y1+_div(dy*i,dx));
+                i += 1;
+            }
+        }else{
+            var i:i32 = 0;
+            while(x2+i <= x1){
+                _dot(x2+i, y2+_div(dy*i,dx));
+                i += 1;
+            }
+        }
+    }
+}
+
+
