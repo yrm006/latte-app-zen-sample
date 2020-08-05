@@ -8,7 +8,7 @@
 1. "> ." on the IchigoLatte to run the sample application
 
 ## Details
-[blog](https://yrm006.wordpress.com/?p=11318)
+[see blog](https://yrm006.wordpress.com/?p=11318)
 
 ## See also
 * [IchigoLatte](http://ichigolatte.shizentai.jp/)
