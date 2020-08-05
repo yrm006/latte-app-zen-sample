@@ -11,5 +11,5 @@
 [blog](https://yrm006.wordpress.com/?p=11318)
 
 ## See also
-[IchigoLatte](http://ichigolatte.shizentai.jp/)
-[Zen](https://zen-lang.org/)
+* [IchigoLatte](http://ichigolatte.shizentai.jp/)
+* [Zen](https://zen-lang.org/)
